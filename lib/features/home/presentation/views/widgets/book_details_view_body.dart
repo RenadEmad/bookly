@@ -1,10 +1,11 @@
 import 'package:bokk_app/core/utils/styles.dart';
+import 'package:bokk_app/features/home/presentation/views/widgets/book_details_section.dart';
 import 'package:bokk_app/features/home/presentation/views/widgets/books_action.dart';
 import 'package:bokk_app/features/home/presentation/views/widgets/custom_book_details_app_bar.dart';
 import 'package:bokk_app/features/home/presentation/views/widgets/custom_book_image.dart';
+import 'package:bokk_app/features/home/presentation/views/widgets/similar_book_section.dart';
 import 'package:flutter/material.dart';
-
-import '../../../../../core/widgets/custom_button.dart';
+import 'similar_book_list_view.dart';
 
 class BookDetailsViewBody extends StatelessWidget {
   const BookDetailsViewBody({super.key});
@@ -12,28 +13,24 @@ class BookDetailsViewBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 30),
-      child: Column(
-        children: [
-          const CustomBookDetalsAppBar(),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: width * 0.17),
-            child: const CustomBookImage(),
+    return const CustomScrollView(
+      slivers: [
+        SliverFillRemaining(
+          hasScrollBody: false,
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 30),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  CustomBookDetalsAppBar(),
+                  BookDetailsSection(),
+                  SimilarBookSection()
+                ],
+              ),
+            ),
           ),
-          const Text(
-            'Jungle book',
-            style: Styles.textStyle30,
-          ),
-          const Opacity(
-              opacity: 0.7,
-              child: Text(
-                'details',
-                style: Styles.textStyle30,
-              )),
-          const BooksAction(),
-        ],
-      ),
+        )
+      ],
     );
   }
 }
